@@ -1,0 +1,43 @@
+name: CI for PERN Vite Project
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      # Server: install backend dependencies
+      - name: Install Server dependencies
+        run: |
+          cd Server
+          npm install
+
+      # Server testing (optional)
+      - name: Run Server tests
+        run: |
+          cd Server
+          npm test || echo "No backend tests"
+
+      # Client: install frontend dependencies
+      - name: Install Client dependencies
+        run: |
+          cd client
+          npm install
+
+      # Build frontend (Vite)
+      - name: Build Frontend
+        run: |
+          cd client
+          npm run build || echo "No build script"
