@@ -1,4 +1,8 @@
 {
   "name": "sem3-root",
-  "private": true
+  "private": true,
+  "workspaces": [
+    "client",
+    "Server"
+  ]
 }
